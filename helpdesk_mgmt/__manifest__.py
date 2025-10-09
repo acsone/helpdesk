@@ -39,6 +39,7 @@
             "helpdesk_mgmt/static/src/js/new_ticket.js",
         ],
     },
+    "pre_init_hook": "pre_init_hook",
     "development_status": "Beta",
     "application": True,
     "installable": True,
