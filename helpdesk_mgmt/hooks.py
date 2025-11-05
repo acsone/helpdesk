@@ -2,9 +2,12 @@
 from openupgradelib import openupgrade
 from odoo import api, SUPERUSER_ID
 
+from odoo.upgrade.util import module_installed
 
 
 def pre_init_hook(cr):
+    if not module_installed(cr, "helpdesk"):
+        return
     env = api.Environment(cr, SUPERUSER_ID, {})
     _remove_views(env)
     _set_uninstallable(env)
