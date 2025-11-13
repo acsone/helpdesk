@@ -1,12 +1,19 @@
 # Copyright 2025 ACSONE SA/NV
+import logging
+
 from openupgradelib import openupgrade
 from odoo import api, SUPERUSER_ID
 
-from odoo.upgrade.util import module_installed
-
+from openupgradelib.openupgrade import table_exists
+_logger = logging.getLogger(__name__)
 
 def pre_init_hook(cr):
-    if not module_installed(cr, "helpdesk"):
+    if not table_exists(cr, "helpdesk_ticket_reason"):
+        _logger.info(
+            "Post-init hook passed. This database "
+            "is probably coming from a fresh installed "
+            "or has already been migrated to OCA Helpdesk."
+        )
         return
     env = api.Environment(cr, SUPERUSER_ID, {})
     _remove_views(env)
