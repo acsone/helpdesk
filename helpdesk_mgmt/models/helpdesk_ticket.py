@@ -22,6 +22,22 @@ class HelpdeskTicket(models.Model):
             if not ticket.user_id and ticket.team_id:
                 ticket.user_id = ticket.team_id.alias_user_id
 
+    @api.depends("partner_id")
+    def _compute_partner_name(self):
+        for ticket in self:
+            if ticket.partner_id and ticket.partner_id.name:
+                ticket.partner_name = ticket.partner_id.name
+            else:
+                ticket.partner_name = ""
+
+    @api.depends("partner_id")
+    def _compute_partner_email(self):
+        for ticket in self:
+            if ticket.partner_id and ticket.partner_id.email:
+                ticket.partner_email = ticket.partner_id.email
+            else:
+                ticket.partner_email = ""
+
     @api.model
     def _read_group_stage_ids(self, stages, domain, order):
         """Show always the stages without team, or stages of the default team."""
@@ -75,8 +91,8 @@ class HelpdeskTicket(models.Model):
         store=True,
         related="partner_id.commercial_partner_id",
     )
-    partner_name = fields.Char()
-    partner_email = fields.Char(string="Email")
+    partner_name = fields.Char(compute="_compute_partner_name")
+    partner_email = fields.Char(string="Email", compute="_compute_partner_email")
     last_stage_update = fields.Datetime(default=fields.Datetime.now)
     assigned_date = fields.Datetime()
     closed_date = fields.Datetime()
