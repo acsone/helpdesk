@@ -15,8 +15,14 @@ class HelpdeskTicket(models.Model):
 
     @api.depends("purchase_order_ids")
     def _compute_po_count(self):
+        purchase_data = self.env["purchase.order"].read_group(
+            [("ticket_ids", "in", self.ids)], ["ticket_ids"], ["ticket_ids"]
+        )
+        mapped_data = {
+            data["ticket_ids"][0]: data["ticket_ids_count"] for data in purchase_data
+        }
         for ticket in self:
-            ticket.po_count = len(ticket.purchase_order_ids)
+            ticket.po_count = mapped_data.get(ticket.id, 0)
 
     def action_view_purchase_orders(self):
         """Returns action to view purchase orders related to this ticket."""

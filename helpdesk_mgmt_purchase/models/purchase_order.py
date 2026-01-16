@@ -15,5 +15,14 @@ class PurchaseOrder(models.Model):
 
     @api.depends("ticket_ids")
     def _compute_ticket_count(self):
+        ticket_data = self.env["helpdesk.ticket"].read_group(
+            [("purchase_order_ids", "in", self.ids)],
+            ["purchase_order_ids"],
+            ["purchase_order_ids"],
+        )
+        mapped_data = {
+            data["purchase_order_ids"][0]: data["purchase_order_ids_count"]
+            for data in ticket_data
+        }
         for order in self:
-            order.ticket_count = len(order.ticket_ids)
+            order.ticket_count = mapped_data.get(order.id, 0)
