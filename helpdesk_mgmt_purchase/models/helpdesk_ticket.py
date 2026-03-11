@@ -2,7 +2,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class HelpdeskTicket(models.Model):
@@ -35,7 +35,7 @@ class HelpdeskTicket(models.Model):
         }
         action["domain"] = [("ticket_ids", "in", [self.id])]
         action["context"] = {
-            "default_ticket_ids": [(4, [self.id])],
+            "default_ticket_ids": [Command.set(self.ids)],
             "default_partner_id": self.partner_id.id,
         }
         return action
