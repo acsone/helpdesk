@@ -42,36 +42,11 @@ This modules links helpdesk mgmt tickets with account moves.
 .. contents::
    :local:
 
-Use Cases / Context
-===================
-
-
-
-Installation
-============
-
-
-
 Configuration
 =============
 
 To be able to see the all smart buttons appearing, you have to make sure
 your user is in the group "Show Full Accounting Features"
-
-Usage
-=====
-
-
-
-Known issues / Roadmap
-======================
-
-
-
-Changelog
-=========
-
-
 
 Bug Tracker
 ===========
@@ -95,14 +70,6 @@ Contributors
 ------------
 
 - Nicolas Delbovier nicolas.delbovier@acsone.eu (https://www.acsone.eu/)
-
-Other credits
--------------
-
-The development of this module has been financially supported by:
-
-- Copyright 2017 Camptocamp SA
-- Copyright 2023 ACSONE SA/NV
 
 Maintainers
 -----------
