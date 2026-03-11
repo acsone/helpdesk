@@ -28,7 +28,14 @@ Helpdesk Mgmt Account
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
+This modules links helpdesk mgmt tickets with account moves.
 
+|alt text|
+
+|image1|
+
+.. |alt text| image:: https://raw.githubusercontent.com/OCA/helpdesk/16.0/helpdesk_mgmt_account/510732954-b30f0c53-ec65-43c6-84ca-c4aadd4aa8ed.png
+.. |image1| image:: https://raw.githubusercontent.com/OCA/helpdesk/16.0/helpdesk_mgmt_account/510733084-d14ab9dc-a01f-4e0b-875d-d29834fda820.png
 
 **Table of contents**
 
@@ -48,7 +55,8 @@ Installation
 Configuration
 =============
 
-
+To be able to see the all smart buttons appearing, you have to make sure
+your user is in the group "Show Full Accounting Features"
 
 Usage
 =====
