@@ -2,7 +2,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class PurchaseOrder(models.Model):
@@ -26,3 +26,16 @@ class PurchaseOrder(models.Model):
         }
         for order in self:
             order.ticket_count = mapped_data.get(order.id, 0)
+
+    def action_view_helpdesk_tickets(self):
+        self.ensure_one()
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "helpdesk_mgmt.helpdesk_ticket_action"
+        )
+        action["domain"] = [("purchase_order_ids", "in", [self.id])]
+        action["context"] = {
+            "default_purchase_order_ids": [Command.set(self.ids)],
+            # ↓ enables to show the "1" in smart button even before save
+            "default_po_count": 1,
+        }
+        return action
