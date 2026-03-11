@@ -33,25 +33,38 @@ class TestHelpdeskTicketPurchase(TransactionCase):
         )
 
     def test_purchase_orders_associated_with_ticket(self):
-        # Verify that a Helpdesk ticket has multiple purchase orders associated with it.
         self.assertEqual(len(self.ticket.purchase_order_ids), 2)
         self.assertIn(self.purchase_order_1, self.ticket.purchase_order_ids)
         self.assertIn(self.purchase_order_2, self.ticket.purchase_order_ids)
 
     def test_partner_association_in_purchase_order(self):
-        # Verify that a purchase order is associated with the correct ticket partner.
         self.assertEqual(self.purchase_order_1.partner_id, self.partner)
         self.assertEqual(self.purchase_order_2.partner_id, self.partner)
 
     def test_smartbutton_sale_order_count(self):
-        # Check the purchase order counter in the smartbutton of the ticket.
         self.ticket._compute_po_count()
         self.assertEqual(self.ticket.po_count, 2)
 
     def test_action_view_purchase_orders(self):
-        # Verify that the smartbutton action displays the associated orders correctly.
         action = self.ticket.action_view_purchase_orders()
         self.assertEqual(action["domain"], [("ticket_ids", "in", [self.ticket.id])])
+        self.assertDictEqual(
+            action["context"],
+            {
+                "default_ticket_ids": [Command.set(self.ticket.ids)],
+                "default_partner_id": self.ticket.partner_id.id,
+            },
+        )
+
+    def test_action_view_helpdesk_tickets(self):
+        action = self.purchase_order_1.action_view_helpdesk_tickets()
         self.assertEqual(
-            action["context"]["default_ticket_ids"], [(4, [self.ticket.id])]
+            action["domain"], [("purchase_order_ids", "in", [self.purchase_order_1.id])]
+        )
+        self.assertDictEqual(
+            action["context"],
+            {
+                "default_purchase_order_ids": [Command.set(self.purchase_order_1.ids)],
+                "default_po_count": 1,
+            },
         )
