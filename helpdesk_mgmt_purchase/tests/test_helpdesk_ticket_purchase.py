@@ -41,9 +41,11 @@ class TestHelpdeskTicketPurchase(TransactionCase):
         self.assertEqual(self.purchase_order_1.partner_id, self.partner)
         self.assertEqual(self.purchase_order_2.partner_id, self.partner)
 
-    def test_smartbutton_sale_order_count(self):
+    def test_smartbuttons_count(self):
         self.ticket._compute_po_count()
         self.assertEqual(self.ticket.po_count, 2)
+        self.assertEqual(self.purchase_order_1.ticket_count, 1)
+        self.assertEqual(self.purchase_order_2.ticket_count, 1)
 
     def test_action_view_purchase_orders(self):
         action = self.ticket.action_view_purchase_orders()
