@@ -28,42 +28,20 @@ Helpdesk Mgmt Purchase
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
+Links helpdesk tickets to purchase orders by adding a smart buttons on
+the form views.
 
+|Purchase Order Form View: link with tickets|
+
+|Helpdesk Ticket Form View: link with purchase orders|
+
+.. |Purchase Order Form View: link with tickets| image:: https://raw.githubusercontent.com/OCA/helpdesk/16.0/helpdesk_mgmt_purchase/static/description/po-form.png
+.. |Helpdesk Ticket Form View: link with purchase orders| image:: https://raw.githubusercontent.com/OCA/helpdesk/16.0/helpdesk_mgmt_purchase/static/description/tickets-form.png
 
 **Table of contents**
 
 .. contents::
    :local:
-
-Use Cases / Context
-===================
-
-
-
-Installation
-============
-
-
-
-Configuration
-=============
-
-
-
-Usage
-=====
-
-
-
-Known issues / Roadmap
-======================
-
-
-
-Changelog
-=========
-
-
 
 Bug Tracker
 ===========
@@ -93,7 +71,6 @@ Other credits
 
 The development of this module has been financially supported by:
 
-- Camptocamp SA
 - ACSONE SA/NV
 
 Maintainers
