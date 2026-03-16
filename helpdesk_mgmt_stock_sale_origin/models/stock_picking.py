@@ -11,7 +11,7 @@ class StockPicking(models.Model):
         action = super().action_view_helpdesk_tickets()
 
         picking_type_code = self.picking_type_id.code
-        if picking_type_code == "outgoing":
+        if picking_type_code == "outgoing" and self.origin:
             origin_so_data = self.env["sale.order"].search_read(
                 domain=[("name", "=", self.origin)], fields=["id"], limit=1
             )
