@@ -9,6 +9,7 @@
                 <group>
                     <field name="name" />
                     <field name="team_id" />
+                    <field name="default_description" />
                 </group>
             </form>
         </field>

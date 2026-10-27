@@ -17,6 +17,19 @@ class HelpdeskTicket(models.Model):
         compute="_compute_team_user_helpdesk_motive",
     )
 
+    description = fields.Html(
+        compute="_compute_description",
+        store=True,
+        readonly=False,
+        precompute=True,
+    )
+
+    @api.depends("motive_id")
+    def _compute_description(self):
+        for ticket in self:
+            if ticket.motive_id.default_description and not ticket.description:
+                ticket.description = ticket.motive_id.default_description
+
     @api.depends("team_id", "user_id")
     def _compute_team_user_helpdesk_motive(self):
         for record in self:

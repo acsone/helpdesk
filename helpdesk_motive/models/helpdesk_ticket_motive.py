@@ -10,3 +10,4 @@ class HelpdeskMotive(models.Model):
 
     name = fields.Char(required=True, translate=True)
     team_id = fields.Many2one("helpdesk.ticket.team", string="Helpdesk Team")
+    default_description = fields.Text()
